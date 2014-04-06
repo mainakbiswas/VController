@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
-    <EditText
-        android:id="@+id/EditText01"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="enter text">
-    </EditText>
-    <Button
-        android:id="@+id/myButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/EditText01"
-        android:onClick="onClick"
-        android:text="Start Connection" >
-    </Button>
-    
-    <Button
-        android:id="@+id/leftButton"        
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/Connections"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/myButton"
-        android:layout_alignParentLeft="true"
-        android:text="Left" >
-    </Button>
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_weight="3"
+        android:orientation="horizontal" >
+        
+        <Button
+	        android:id="@+id/Wifi"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="5dp"
+	        android:text="Wf" />
+	
+	    <Button
+	        android:id="@+id/Bluetooth"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:text="Bt" />
+        
+    </LinearLayout>
     
-    <Button
-        android:id="@+id/RightButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/myButton"
-        android:layout_alignParentRight="true"
-        android:text="Right" >
-    </Button>    
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@drawable/border">
+
+    </ListView>
     
-</RelativeLayout>
+</LinearLayout>
 

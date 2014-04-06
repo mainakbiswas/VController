@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/Down"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Right"
+        android:layout_toRightOf="@+id/Left"
+        android:text="dn" />
+
+    <Button
+        android:id="@+id/XButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Down"
+        android:layout_alignBottom="@+id/Down"
+        android:layout_alignLeft="@+id/Triangle"
+        android:text="x" />
+
+    <Button
+        android:id="@+id/R1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Square"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:text="r1" />
+
+    <Button
+        android:id="@+id/Up"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/L1"
+        android:layout_toRightOf="@+id/Left"
+        android:text="up" />
+
+    <Button
+        android:id="@+id/Right"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Left"
+        android:layout_alignBottom="@+id/Left"
+        android:layout_toRightOf="@+id/Down"
+        android:text="rt" />
+
+    <Button
+        android:id="@+id/Circle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/XButton"
+        android:layout_alignLeft="@+id/R2"
+        android:layout_marginLeft="24dp"
+        android:text="cl" />
+
+    <Button
+        android:id="@+id/Triangle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/R1"
+        android:layout_toRightOf="@+id/Square"
+        android:text="tr" />
+
+    <Button
+        android:id="@+id/Left"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/Up"
+        android:layout_marginLeft="23dp"
+        android:text="lt" />
+
+    <Button
+        android:id="@+id/Select"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Right"
+        android:layout_alignBottom="@+id/Right"
+        android:layout_marginLeft="35dp"
+        android:layout_toRightOf="@+id/Right"
+        android:text="sl" />
+
+    <Button
+        android:id="@+id/Start"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/XButton"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/Select"
+        android:text="st" />
+
+    <Button
+        android:id="@+id/Square"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/XButton"
+        android:layout_marginLeft="31dp"
+        android:layout_toRightOf="@+id/Start"
+        android:text="sq" />
+
+    <Button
+        android:id="@+id/L1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Triangle"
+        android:layout_alignLeft="@+id/Left"
+        android:layout_marginLeft="24dp"
+        android:text="l1" />
+
+    <Button
+        android:id="@+id/R2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Triangle"
+        android:layout_toRightOf="@+id/R1"
+        android:text="r2" />
+
+    <Button
+        android:id="@+id/L2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Up"
+        android:layout_toRightOf="@+id/L1"
+        android:text="l2" />
+
+</RelativeLayout>
