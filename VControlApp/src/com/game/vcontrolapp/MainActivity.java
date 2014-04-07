@@ -1,6 +1,10 @@
 package com.game.vcontrolapp;
 
-import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +14,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class MainActivity extends ListActivity{
 	
@@ -26,6 +33,9 @@ public class MainActivity extends ListActivity{
 	private List<String> mServerList;
 	
 	private NetworkCommunicator mNetworkCommunicator;
+	private FileHandler mFileHandler;
+	
+	private ListView mList;
 	
 	Intent mIntent;
     
@@ -49,6 +59,9 @@ public class MainActivity extends ListActivity{
                 mServerList);
         
 		mIntent = new Intent(this, ControllerActivity.class);
+		mFileHandler = new FileHandler(this);
+		
+		mList = getListView();
         
         setListAdapter(mServersAdapter);
         
@@ -59,9 +72,15 @@ public class MainActivity extends ListActivity{
 				@Override
 				public void onClick(View v) {
 					mNetworkCommunicator = new WifiCommunicator();
+					List<String> servers = mFileHandler.readLinesFromFile("servers.txt");
+					mServerList.addAll(servers);
+					addItems();
+					
+					String ownIp = mNetworkCommunicator.getBroadcastAddress();
 					mEnterIP.setText(mNetworkCommunicator.getBroadcastAddress());
 					if(mConnect != null)
 			        	mConnect.setEnabled(true);
+					
 					//mServerList.addAll(mNetworkCommunicator.getLocalServers());
 					//addItems();
 				}
@@ -74,11 +93,29 @@ public class MainActivity extends ListActivity{
 				
 				@Override
 				public void onClick(View v) {
-					mNetworkCommunicator.connect(mEnterIP.getText().toString());
+					String ip = mEnterIP.getText().toString();
+					if(ip.matches("[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"))
+					{
+						String host = mNetworkCommunicator.connect(ip);
+						if(!mServerList.contains(host))
+							mServerList.add(host);
+						mFileHandler.writeLinesToFile("servers.txt", mServerList);
+					}
                 	startActivity(mIntent);
 				}
 			});
         }
+        
+        mList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> list, View v, int position,
+					long id) {
+				
+				String address = mServerList.get(position);
+				mNetworkCommunicator.connect(address);
+				//startActivity(mIntent);
+			}
+		});
     }
 
     @Override

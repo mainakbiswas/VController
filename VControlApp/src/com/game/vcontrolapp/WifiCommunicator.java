@@ -21,6 +21,7 @@ public class WifiCommunicator extends NetworkCommunicator {
 	private Socket mSocket;
 	private static final int mPort = 2357;
 	private InterfaceAddress mOwnInterfaceAddress;
+	private String mCurrentServerName;
 	
 	private PrintWriter mOut;
 
@@ -99,9 +100,19 @@ public class WifiCommunicator extends NetworkCommunicator {
 		
 		return mOwnInterfaceAddress.getBroadcast().getHostAddress();
 	}
+	
+	private String getHostName(String server) {		
+		try {
+			InetAddress addr = InetAddress.getByName(server);
+			return addr.getHostName();
+		} catch (UnknownHostException e) {
+		}
+		return server;
+	}
+	
 
 	@Override
-	public void connect(final String server) {
+	public String connect(final String server) {
 		Thread connectThread = new Thread() {			
 			@Override
 			public void run() {
@@ -114,6 +125,7 @@ public class WifiCommunicator extends NetworkCommunicator {
 	                        new OutputStreamWriter(mSocket.getOutputStream())),
 	                        true);
 					mCurrentServer = server;
+					mCurrentServerName = getHostName(mCurrentServer);
 				} catch (UnknownHostException e) {
 					mSocket = null;
 				} catch (IOException e) {
@@ -128,6 +140,8 @@ public class WifiCommunicator extends NetworkCommunicator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return mCurrentServerName;
 	}
 	
 	public void disconnect()

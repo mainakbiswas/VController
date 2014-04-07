@@ -6,7 +6,7 @@ public abstract class NetworkCommunicator {
 	
 	public abstract List<String> getLocalServers();
 	
-	public abstract void connect(String server);
+	public abstract String connect(String server);
 	
 	public abstract void reconnect();
 	
