@@ -1,7 +1,7 @@
 package com.game.vcontrolapp;
 import java.util.List;
 
-public abstract class NetworkCommunicator {
+public abstract class NetworkCommunicator{
 	protected String mCurrentServer;
 	
 	public abstract List<String> getLocalServers();

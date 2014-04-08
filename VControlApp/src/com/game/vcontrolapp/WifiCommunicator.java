@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import android.os.Parcel;
+
 public class WifiCommunicator extends NetworkCommunicator {
 	
 	private Socket mSocket;
@@ -70,7 +72,6 @@ public class WifiCommunicator extends NetworkCommunicator {
 	        return result;
 		}
 	}
-	
 	
 	@Override
 	public List<String> getLocalServers() {
@@ -202,4 +203,5 @@ public class WifiCommunicator extends NetworkCommunicator {
 		if(mSocket == null && mCurrentServer != null)
 			connect(mCurrentServer);
 	}
+
 }

@@ -56,7 +56,7 @@ public class FileHandler {
 			
 			for(String line : lines)
 			{
-				writer.write(line);
+				writer.write(line + "\n");
 			}
 			writer.close();
 			stream.close();

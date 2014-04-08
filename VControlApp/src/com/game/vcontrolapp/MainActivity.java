@@ -19,11 +19,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class MainActivity extends ListActivity{
 	
 	private Button mWifi;
+	
+	private LinearLayout mConnections;
 	private Button mBluetooth;
 	private Button mConnect;
 	
@@ -35,6 +38,8 @@ public class MainActivity extends ListActivity{
 	private NetworkCommunicator mNetworkCommunicator;
 	private FileHandler mFileHandler;
 	
+	private String mConnectionType;
+	
 	private ListView mList;
 	
 	Intent mIntent;
@@ -43,7 +48,10 @@ public class MainActivity extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //deleteFile("servers.txt");
         
+        mConnections = (LinearLayout) findViewById(R.id.Connections);
+        mConnections.requestFocus();
         mWifi = (Button) findViewById(R.id.Wifi);
         mBluetooth = (Button) findViewById(R.id.Bluetooth);
         mConnect = (Button) findViewById(R.id.Connect);
@@ -51,6 +59,10 @@ public class MainActivity extends ListActivity{
         	mConnect.setEnabled(false);
         
         mEnterIP = (EditText) findViewById(R.id.EnterIp);
+        if(mEnterIP != null)
+        {
+        	mEnterIP.setEnabled(false);
+        }
         
         mServerList = new ArrayList<String>();
         
@@ -71,13 +83,20 @@ public class MainActivity extends ListActivity{
 				
 				@Override
 				public void onClick(View v) {
+					
+					mConnectionType = "wifi";
 					mNetworkCommunicator = new WifiCommunicator();
 					List<String> servers = mFileHandler.readLinesFromFile("servers.txt");
 					mServerList.addAll(servers);
 					addItems();
 					
+					if(mEnterIP != null)
+					{
+			        	mEnterIP.setEnabled(true);
+					}
+					
 					String ownIp = mNetworkCommunicator.getBroadcastAddress();
-					mEnterIP.setText(mNetworkCommunicator.getBroadcastAddress());
+					mEnterIP.setText(ownIp);
 					if(mConnect != null)
 			        	mConnect.setEnabled(true);
 					
@@ -97,11 +116,17 @@ public class MainActivity extends ListActivity{
 					if(ip.matches("[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"))
 					{
 						String host = mNetworkCommunicator.connect(ip);
-						if(!mServerList.contains(host))
-							mServerList.add(host);
-						mFileHandler.writeLinesToFile("servers.txt", mServerList);
+						if(host != null)
+						{
+							if(!mServerList.contains(host))
+								mServerList.add(host);
+							mFileHandler.writeLinesToFile("servers.txt", mServerList);
+							mNetworkCommunicator.disconnect();
+							mIntent.putExtra("com.game.vcontrolapp.connectionType", mConnectionType);
+							mIntent.putExtra("com.game.vcontrolapp.server", ip);
+		                	startActivity(mIntent);
+						}
 					}
-                	startActivity(mIntent);
 				}
 			});
         }
@@ -112,8 +137,14 @@ public class MainActivity extends ListActivity{
 					long id) {
 				
 				String address = mServerList.get(position);
-				mNetworkCommunicator.connect(address);
-				//startActivity(mIntent);
+				String host = mNetworkCommunicator.connect(address);
+				if(host != null)
+				{
+					mNetworkCommunicator.disconnect();
+					mIntent.putExtra("com.game.vcontrolapp.connectionType", mConnectionType);
+					mIntent.putExtra("com.game.vcontrolapp.server", address);
+					startActivity(mIntent);
+				}
 			}
 		});
     }
@@ -132,37 +163,5 @@ public class MainActivity extends ListActivity{
     
     public void addItems() {
     	mServersAdapter.notifyDataSetChanged();
-    }
-    
-    /*
-    public void onClick(View view) {
-        EditText et = (EditText) findViewById(R.id.IPAssign);
-        String str = et.getText().toString();
-        
-        if(str.matches("[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"))
-        	SERVER_IP = str;
-
-        new Thread(new ClientThread()).start();
-    }*/
-    
-    @Override
-    protected void onPause() {
-    	super.onPause();
-    	if(mNetworkCommunicator != null)
-    		mNetworkCommunicator.disconnect();
-    }
-    
-    @Override
-    protected void onResume()
-    {
-	    super.onResume(); 
-	    if(mNetworkCommunicator != null)
-	    	mNetworkCommunicator.reconnect();
-    }
-    
-    @Override
-    protected void onStop()
-    {
-	    super.onStop();
     }
 }
