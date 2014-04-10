@@ -21,8 +21,21 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int border=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
+        public static final int background=0x7f020000;
+        public static final int bluetooth_activated=0x7f020001;
+        public static final int bluetooth_disabled=0x7f020002;
+        public static final int bluetooth_normal=0x7f020003;
+        public static final int bluetooth_pressed=0x7f020004;
+        public static final int bluetooth_resource=0x7f020005;
+        public static final int border=0x7f020006;
+        public static final int controller=0x7f020007;
+        public static final int controller2=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int wifi_activated=0x7f02000a;
+        public static final int wifi_disabled=0x7f02000b;
+        public static final int wifi_normal=0x7f02000c;
+        public static final int wifi_pressed=0x7f02000d;
+        public static final int wifi_resource=0x7f02000e;
     }
     public static final class id {
         public static final int Bluetooth=0x7f080002;

@@ -3,6 +3,7 @@ package com.game.vcontrolapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 
 public class ControllerActivity extends Activity {
 	
@@ -25,7 +26,7 @@ public class ControllerActivity extends Activity {
         if(mHost == null)
         	finish();
         
-        mNetworkCommunicator.send("test");
+        //mNetworkCommunicator.send("test");
     }
 	
 	@Override
